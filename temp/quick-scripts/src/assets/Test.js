@@ -55,20 +55,47 @@ var Test = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.x_editBox = null;
         _this.y_editBox = null;
+        _this.buttonNode = null;
+        _this.animation = null;
         return _this;
         // update (dt) {}
     }
     Test.prototype.onLoad = function () {
+        this.animation = this.buttonNode.getComponent(cc.Animation);
+        var animState = this.animation.play('button_show');
+        animState.speed = 0.8;
+    };
+    Test.prototype.onAnimationEvent = function (event) {
+        cc.log('zwx     xxxx', event);
+    };
+    /**
+     * 动画按钮表现完毕
+     */
+    Test.prototype.onShowEnd = function () {
+        cc.log('zwx         按钮出现完毕');
+        // 调用按钮待机动画
+        this.animation.play('button_standy');
+    };
+    /**
+     * 动画按钮点击完毕
+     */
+    Test.prototype.onClickEnd = function () {
+        cc.log('zwx         按钮点击完毕');
+        this.animation.play('button_standy');
     };
     /**
      * 点击生成
      */
     Test.prototype.generateGird = function () {
         var _this = this;
+        this.animation.play('button_click');
         cc.log('zwx         x_editBox:', this.x_editBox.string);
         cc.log('zwx         y_editBox:', this.y_editBox.string);
         var X = parseInt(this.x_editBox.string);
         var Y = parseInt(this.y_editBox.string);
+        if (!X || !Y) {
+            return;
+        }
         // ====================== 错误思路 ======================
         // // X轴
         // for (let i = 0; i < width; i++) {
@@ -264,6 +291,9 @@ var Test = /** @class */ (function (_super) {
     __decorate([
         property(cc.EditBox)
     ], Test.prototype, "y_editBox", void 0);
+    __decorate([
+        property(cc.Node)
+    ], Test.prototype, "buttonNode", void 0);
     Test = __decorate([
         ccclass
     ], Test);
@@ -274,9 +304,34 @@ exports.default = Test;
 // 40 和b中2相加为 42。代码编写完毕后，用大O表示法分析一下代码的时间复杂度
 // 思路一 双层 for循环 暴力 查询 （时间复杂为n的二次方）
 function canSum(a, b, v) {
+    for (var i = 0; i < a.length; i++) {
+        for (var j = 0; j < b.length; j++) {
+            if (a[i] + b[j] === v) {
+                return true;
+            }
+        }
+    }
     return false;
     ;
 }
 // 思路二  数组结构转为 二叉树结构
+var TreeNode = /** @class */ (function () {
+    function TreeNode(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+    return TreeNode;
+}());
+// 先将数组转为二叉树
+function arrayToTree(arr, index) {
+    if (index > arr.length || arr[index] === null) {
+        return null;
+    }
+    var node = new TreeNode(arr[index]);
+    node.left = arrayToTree(arr, 2 * index + 1);
+    node.right = arrayToTree(arr, 2 * index + 2);
+    return node;
+}
 
 cc._RF.pop();

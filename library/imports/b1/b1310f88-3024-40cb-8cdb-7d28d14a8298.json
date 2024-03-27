@@ -1,6 +1,6 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "button_standby",
+  "_name": "button_show",
   "_objFlags": 0,
   "_native": "",
   "_duration": 0.26666666666666666,
@@ -228,5 +228,13 @@
       ]
     }
   },
-  "events": []
+  "events": [
+    {
+      "frame": 0.26666666666666666,
+      "func": "onShowEnd",
+      "params": [
+        "a"
+      ]
+    }
+  ]
 }

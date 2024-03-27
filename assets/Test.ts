@@ -39,14 +39,41 @@ export default class Test extends cc.Component {
     @property(cc.EditBox)
     y_editBox: cc.EditBox = null;
 
-    protected onLoad(): void {
+    @property(cc.Node)
+    buttonNode: cc.Node = null;
 
+    private animation: cc.Animation = null;
+    protected onLoad(): void {
+        this.animation = this.buttonNode.getComponent(cc.Animation)
+        let animState = this.animation.play('button_show');
+        animState.speed = 0.8;
+    }
+    onAnimationEvent(event) {
+        cc.log('zwx     xxxx',event);
+    }
+    /**
+     * 动画按钮表现完毕
+     */
+    onShowEnd() {
+        cc.log('zwx         按钮出现完毕');
+        // 调用按钮待机动画
+        this.animation.play('button_standy');
+    }
+
+    /**
+     * 动画按钮点击完毕
+     */
+    onClickEnd() {
+        cc.log('zwx         按钮点击完毕');
+        this.animation.play('button_standy');
     }
 
     /**
      * 点击生成
      */
     generateGird() {
+        this.animation.play('button_click');
+
         cc.log('zwx         x_editBox:', this.x_editBox.string);
         cc.log('zwx         y_editBox:', this.y_editBox.string);
 
@@ -54,6 +81,9 @@ export default class Test extends cc.Component {
 
         let Y = parseInt(this.y_editBox.string);
 
+        if(!X || !Y) {
+            return;
+        }
         // ====================== 错误思路 ======================
         // // X轴
         // for (let i = 0; i < width; i++) {
@@ -259,9 +289,9 @@ export default class Test extends cc.Component {
 
 // 思路一 双层 for循环 暴力 查询 （时间复杂为n的二次方）
 function canSum(a: number[], b: number[], v: number): boolean {
-    for(let i = 0; i < a.length; i++) {
-        for(let j = 0; j < b.length; j++) {
-            if(a[i] + b[j] === v) {
+    for (let i = 0; i < a.length; i++) {
+        for (let j = 0; j < b.length; j++) {
+            if (a[i] + b[j] === v) {
                 return true;
             }
         }
@@ -283,7 +313,7 @@ class TreeNode {
 
 // 先将数组转为二叉树
 function arrayToTree(arr: number[], index: number): TreeNode | null {
-    if(index > arr.length || arr[index] === null) {
+    if (index > arr.length || arr[index] === null) {
         return null;
     }
     const node = new TreeNode(arr[index]);
