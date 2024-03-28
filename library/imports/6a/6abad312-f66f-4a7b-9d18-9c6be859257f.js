@@ -56,6 +56,7 @@ var Test = /** @class */ (function (_super) {
         _this.x_editBox = null;
         _this.y_editBox = null;
         _this.buttonNode = null;
+        _this.labelNode = null;
         _this.animation = null;
         return _this;
         // update (dt) {}
@@ -64,24 +65,6 @@ var Test = /** @class */ (function (_super) {
         this.animation = this.buttonNode.getComponent(cc.Animation);
         var animState = this.animation.play('button_show');
         animState.speed = 0.8;
-    };
-    Test.prototype.onAnimationEvent = function (event) {
-        cc.log('zwx     xxxx', event);
-    };
-    /**
-     * 动画按钮表现完毕
-     */
-    Test.prototype.onShowEnd = function () {
-        cc.log('zwx         按钮出现完毕');
-        // 调用按钮待机动画
-        this.animation.play('button_standy');
-    };
-    /**
-     * 动画按钮点击完毕
-     */
-    Test.prototype.onClickEnd = function () {
-        cc.log('zwx         按钮点击完毕');
-        this.animation.play('button_standy');
     };
     /**
      * 点击生成
@@ -94,8 +77,10 @@ var Test = /** @class */ (function (_super) {
         var X = parseInt(this.x_editBox.string);
         var Y = parseInt(this.y_editBox.string);
         if (!X || !Y) {
+            this.labelNode.active = true;
             return;
         }
+        this.labelNode.active = this.x_editBox.node.active = this.y_editBox.node.active = this.buttonNode.active = false;
         // ====================== 错误思路 ======================
         // // X轴
         // for (let i = 0; i < width; i++) {
@@ -294,6 +279,9 @@ var Test = /** @class */ (function (_super) {
     __decorate([
         property(cc.Node)
     ], Test.prototype, "buttonNode", void 0);
+    __decorate([
+        property(cc.Node)
+    ], Test.prototype, "labelNode", void 0);
     Test = __decorate([
         ccclass
     ], Test);

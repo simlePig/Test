@@ -1,6 +1,6 @@
 
 (function () {
-var scripts = [{"deps":{"./assets/Test":1},"path":"preview-scripts/__qc_index__.js"},{"deps":{},"path":"preview-scripts/assets/Test.js"}];
+var scripts = [{"deps":{"./assets/Test":1,"./assets/AnimationController":2},"path":"preview-scripts/__qc_index__.js"},{"deps":{},"path":"preview-scripts/assets/Test.js"},{"deps":{},"path":"preview-scripts/assets/AnimationController.js"}];
 var entries = ["preview-scripts/__qc_index__.js"];
 var bundleScript = 'preview-scripts/__qc_bundle__.js';
 

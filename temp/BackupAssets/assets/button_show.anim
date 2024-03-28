@@ -230,10 +230,10 @@
   },
   "events": [
     {
-      "frame": 0.26666666666666666,
+      "frame": 0.25,
       "func": "onShowEnd",
       "params": [
-        ""
+        "a"
       ]
     }
   ]

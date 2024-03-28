@@ -234,5 +234,11 @@
       ]
     }
   },
-  "events": []
+  "events": [
+    {
+      "frame": 0.35,
+      "func": "onClickEnd",
+      "params": []
+    }
+  ]
 }
